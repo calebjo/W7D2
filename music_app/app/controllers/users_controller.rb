@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-    before_action :require_logged_out, only: [:new, :create]
-    before_action :require_logged_in, only: [:destroy, :edit, :update, :show]
+    before_action :require_no_user!
 
     def new
         render :new
@@ -18,7 +17,7 @@ class UsersController < ApplicationController
         # redirect to user index view
         if @user.save
             login!(@user)
-            redirect_to user_url(@user)
+            redirect_to users_url(@user)
         else # otherwise, unprocessable entity error
             render :new, status: 422
         end
@@ -27,6 +26,6 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:email)
+        params.require(:user).permit(:email, :password)
     end
 end

@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
-    before_action :require_logged_out, only: [:new, :create]
-    before_action :require_logged_in, only: [:destroy]
+    before_action :require_no_user!, only: %i(create new)
 
     def new
         render :new
@@ -12,7 +11,6 @@ class SessionsController < ApplicationController
             params[:user][:email],
             params[:user][:password]
         )
-        debugger
         # if user is created successfully, log them in and redirect
         if @user.save
             login!(@user)

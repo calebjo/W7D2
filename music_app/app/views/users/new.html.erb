@@ -1,26 +1,34 @@
 <h1> [NEW USER VIEW] Create a user: </h1>
-<% if type == :new %>
-    <% action_url = users_url %>
-    <% button_text = "Create User" %>
-<% elsif type == :edit %>
-    <% action_url = user_url(user) %>
-    <% button_text = "Update User" %>
-<% end %>
 
+<section class="page">
+  <div class="centered-box">
+    <h1>New User</h1>
 
-<form action="<%= action_url %>" method="POST">
-    <% if type == :edit %>
-        <input type="hidden" name="_method" value="PATCH">
-    <% end %>
-    <label for="email"> Email: </label>
+    <form action="<%= user_url %>" method="post">
 
-    <input id="email" type="text" name="user[email]" value="">
+      <input
+        type="hidden"
+        name="authenticity_token"
+        value="<%= form_authenticity_token %>">
 
-    <% if type == :new %>
-        <label for="password"> Password: </label>
-        <input id="password" type="password" name="user[password]" value="">
-    <% end %>
+      <label for="user_email">Email</label>
 
-    <input type="submit" value="<%= button_text %>">
+      <input type="text"
+        name="user[email]"
+        id="user_email"
+        value="">
+      <br>
 
-</form>
+      <label for="user_password">Password</label>
+
+      <input type="password"
+        name="user[password]"
+        id="user_password"
+        value="">
+      <br>
+
+      <input type="submit">
+
+    </form>
+  </div>
+</section>

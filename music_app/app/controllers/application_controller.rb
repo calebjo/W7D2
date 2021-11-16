@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+    protect_from_forgery with: :exception
     helper_method :current_user, :logged_in?
 
     def login!(user) # reset user's session token and cookie
@@ -13,12 +14,12 @@ class ApplicationController < ActionController::Base
 
     # BEFORE ACTION METHODS ------------------------------
 
-    def require_logged_out
-        redirect_to users_url if logged_in?
+    def require_user!
+        redirect_to new_session_url if current_user.nil?
     end
 
-    def require_logged_in
-        redirect_to new_session_url unless logged_in?
+    def require_no_user!
+        redirect_to users_url if current_user
     end
 
     # HELPER METHODS -------------------------------------
