@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
         # if user is created successfully, log them in and redirect
         if @user.save
             login!(@user)
-            redirect_to :index
+            redirect_to :index # UsersController#show
         else # otherwise try again
             render :new
         end
