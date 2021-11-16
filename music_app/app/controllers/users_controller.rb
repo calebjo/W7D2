@@ -19,10 +19,12 @@ class UsersController < ApplicationController
     def create
         @user = User.new(user_params)
 
+        # if user is successfully created, log them in and 
+        # redirect to user index view
         if @user.save
             login!(@user)
             redirect_to user_url(@user)
-        else
+        else # otherwise, unprocessable entity error
             render json: @user.errors.full_messages, status: 422
         end
     end
