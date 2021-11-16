@@ -1,16 +1,11 @@
 class UsersController < ApplicationController
     before_action :require_logged_out, only: [:new, :create]
-    before_action :require_logged_in, only: [:destroy, :edit, :update, :show, :index]
+    before_action :require_logged_in, only: [:destroy, :edit, :update, :show]
 
     def new
         render :new
     end
-
-    def index
-        @users = User.all
-        render :index
-    end
-
+    
     def show
         @users = User.find(params[:id])
         render :show
