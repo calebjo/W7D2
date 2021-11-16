@@ -1,2 +1,26 @@
 <h1> [NEW USER VIEW] Create a user: </h1>
-<%= render "form", user: @user, type: :new %>
+<% if type == :new %>
+    <% action_url = users_url %>
+    <% button_text = "Create User" %>
+<% elsif type == :edit %>
+    <% action_url = user_url(user) %>
+    <% button_text = "Update User" %>
+<% end %>
+
+
+<form action="<%= action_url %>" method="POST">
+    <% if type == :edit %>
+        <input type="hidden" name="_method" value="PATCH">
+    <% end %>
+    <label for="email"> Email: </label>
+
+    <input id="email" type="text" name="user[email]" value="">
+
+    <% if type == :new %>
+        <label for="password"> Password: </label>
+        <input id="password" type="password" name="user[password]" value="">
+    <% end %>
+
+    <input type="submit" value="<%= button_text %>">
+
+</form>

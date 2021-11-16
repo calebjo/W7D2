@@ -9,10 +9,10 @@ class SessionsController < ApplicationController
     def create
         # create a session with user's params
         @user = User.find_by_credentials(
-            params[:user][:username],
+            params[:user][:email],
             params[:user][:password]
         )
-
+        debugger
         # if user is created successfully, log them in and redirect
         if @user.save
             login!(@user)

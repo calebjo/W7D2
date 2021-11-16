@@ -20,7 +20,7 @@ class UsersController < ApplicationController
             login!(@user)
             redirect_to user_url(@user)
         else # otherwise, unprocessable entity error
-            render json: @user.errors.full_messages, status: 422
+            render :new, status: 422
         end
     end
 
